@@ -30,3 +30,9 @@ export async function sendPost(post: Post): Promise<Post> {
     body: JSON.stringify(post),
   }).then((resp) => resp.json());
 }
+
+export async function deletePostById(postId: number): Promise<Post> {
+  return fetch(`${API_END_POINT}/posts/${postId}`, {
+    method: "DELETE",
+  }).then((resp) => resp.json());
+}

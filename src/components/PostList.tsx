@@ -7,16 +7,18 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { sendPost, Post } from "../API";
+import { sendPost, Post, deletePostById } from "../API";
 
 interface PostListProps {
   posts: Post[];
-  addPost: (post: Post) => void;
+  onAddPost: (post: Post) => void;
+  onDeletePost: (postId: number) => void;
 }
 
 const PostList: React.FunctionComponent<PostListProps> = ({
   posts,
-  addPost,
+  onAddPost: addPost,
+  onDeletePost: deletePost,
 }) => {
   const [title, setTitle] = useState("");
   const onSetTitle = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,6 +32,12 @@ const PostList: React.FunctionComponent<PostListProps> = ({
     const newPost = await sendPost({ title: title, body: body, userId: 1 });
     addPost(newPost);
   };
+
+  const handleDelete = async (postId: number) => {
+    const deletedPost = await deletePostById(postId);
+    deletePost(postId);
+  };
+
   return (
     <>
       {/* Add Post */}
@@ -59,21 +67,41 @@ const PostList: React.FunctionComponent<PostListProps> = ({
       {/* Post List */}
       <ul style={{ listStyle: "none", paddingLeft: "0" }}>
         {posts.map((post) => (
-          <li key={post.id}>
+          <li
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+            key={post.id}
+          >
             <Stack
               direction="row"
               justifyContent="flex-start"
+              flexGrow={1}
               p={2}
               alignItems="center"
             >
               <Avatar src="" />
-              <Box marginLeft={2} flexDirection="column">
+              <Box marginLeft={2} flexDirection="column" flex={10}>
                 <Typography color="black" variant="h6">
                   {post.title}
                 </Typography>
                 <Typography color="gray">{post.body}</Typography>
               </Box>
             </Stack>
+            <Box style={{ display: "flex", gap: "3px" }}>
+              <Button variant="outlined" color="success">
+                Edit
+              </Button>
+              <Button
+                onClick={() => handleDelete(post.id as number)}
+                variant="outlined"
+                color="error"
+              >
+                Delete
+              </Button>
+            </Box>
           </li>
         ))}
       </ul>
