@@ -1,16 +1,5 @@
-import {
-  Home,
-  List,
-  SendAndArchiveOutlined,
-  SendSharp,
-} from "@mui/icons-material";
-import {
-  Box,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
+import { Home } from "@mui/icons-material";
+import { Box, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 
 const Sidebar = () => {
   return (
