@@ -9,10 +9,15 @@ import {
 import React, { useState } from "react";
 import { sendPost, Post } from "../API";
 
-const PostList: React.FunctionComponent<{
+interface PostListProps {
   posts: Post[];
   addPost: (post: Post) => void;
-}> = ({ posts, addPost }) => {
+}
+
+const PostList: React.FunctionComponent<PostListProps> = ({
+  posts,
+  addPost,
+}) => {
   const [title, setTitle] = useState("");
   const onSetTitle = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(evt.target.value);
