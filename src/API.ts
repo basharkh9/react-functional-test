@@ -34,5 +34,13 @@ export async function sendPost(post: Post): Promise<Post> {
 export async function deletePostById(postId: number): Promise<Post> {
   return fetch(`${API_END_POINT}/posts/${postId}`, {
     method: "DELETE",
-  }).then((resp) => resp.json());
+  })
+    .then(async (resp) => {
+      if (!resp.ok) {
+        const error = resp.status;
+        return Promise.reject(error);
+      }
+      return resp.json();
+    })
+    .catch((error) => console.log(error));
 }

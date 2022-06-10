@@ -35,7 +35,7 @@ const PostList: React.FunctionComponent<PostListProps> = ({
 
   const handleDelete = async (postId: number) => {
     const deletedPost = await deletePostById(postId);
-    deletePost(postId);
+    if (deletedPost) deletePost(postId);
   };
 
   return (
