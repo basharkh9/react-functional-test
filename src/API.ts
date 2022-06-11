@@ -1,3 +1,7 @@
+//Important: if you need to use PATCH HTTP method
+// no need to create a new interface
+// you can use Partial<T> utilty type to make all property of object optional
+
 export interface Post {
   userId?: number;
   id?: number;
@@ -11,6 +15,7 @@ export interface Comment {
   email: string;
   body: string;
 }
+
 const API_END_POINT = "https://jsonplaceholder.typicode.com";
 
 export async function getAllPosts(): Promise<Post[]> {
