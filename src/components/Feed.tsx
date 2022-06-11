@@ -14,7 +14,7 @@ const Feed = () => {
     setPosts((posts) => [post, ...posts]);
   };
   const deletedPost = (postId: number) => {
-    setPosts((posts) => posts.filter((p) => p.id != postId));
+    setPosts((posts) => posts.filter((p) => p.id !== postId));
   };
   return (
     <Box flex={6} p={2} paddingLeft={0}>

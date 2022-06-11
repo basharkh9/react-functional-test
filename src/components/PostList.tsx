@@ -9,6 +9,7 @@ import {
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { sendPost, Post, deletePostById } from "../API";
+import CommentList from "./CommentList";
 
 interface PostListProps {
   posts: Post[];
@@ -48,22 +49,27 @@ const PostList: React.FunctionComponent<PostListProps> = ({
     <>
       {/* Add Post */}
       <Box
+        gap={3}
         padding={2}
         display="flex"
         justifyContent="space-evenly"
         alignItems="center"
       >
         <TextField
+          margin="normal"
           id="title"
           label="Title"
           variant="standard"
           onChange={onSetTitle}
+          fullWidth
         />
         <TextField
+          margin="normal"
           id="body"
           label="Body"
           variant="standard"
           onChange={onSetBody}
+          fullWidth
         />
         <Button variant="contained" onClick={() => onSubmitPost()}>
           Send
@@ -86,14 +92,14 @@ const PostList: React.FunctionComponent<PostListProps> = ({
               justifyContent="flex-start"
               flexGrow={1}
               p={2}
-              alignItems="center"
             >
-              <Avatar src="" />
+              <Avatar sx={{ width: 60, height: 60 }} src="" />
               <Box marginLeft={2} flexDirection="column" flex={10}>
                 <Typography color="black" variant="h6">
                   {post.title}
                 </Typography>
                 <Typography color="gray">{post.body}</Typography>
+                <CommentList postId={post.id as number} />
               </Box>
             </Stack>
             <Box style={{ display: "flex", gap: "3px" }}>
