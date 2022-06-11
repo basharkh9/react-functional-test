@@ -16,6 +16,15 @@ const API_END_POINT = "https://jsonplaceholder.typicode.com";
 export async function getAllPosts(): Promise<Post[]> {
   return fetch(`${API_END_POINT}/posts`).then((resp) => resp.json());
 }
+export async function getPost(postId: number): Promise<Post> {
+  return fetch(`${API_END_POINT}/posts/${postId}`).then((resp) => resp.json());
+}
+
+export async function updatePost(postId: number): Promise<Post> {
+  return fetch(`${API_END_POINT}/posts/${postId}`, { method: "PUT" }).then(
+    (resp) => resp.json()
+  );
+}
 
 export async function getCommentsByPostId(postId: number): Promise<Comment[]> {
   return fetch(`${API_END_POINT}/posts/${postId}/comments`).then((resp) =>

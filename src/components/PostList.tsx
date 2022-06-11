@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { sendPost, Post, deletePostById } from "../API";
 
 interface PostListProps {
@@ -20,6 +21,11 @@ const PostList: React.FunctionComponent<PostListProps> = ({
   onAddPost: addPost,
   onDeletePost: deletePost,
 }) => {
+  let navigate = useNavigate();
+
+  const { state } = useLocation();
+  populateSavedPostTolocalList(state, posts);
+
   const [title, setTitle] = useState("");
   const onSetTitle = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(evt.target.value);
@@ -91,7 +97,13 @@ const PostList: React.FunctionComponent<PostListProps> = ({
               </Box>
             </Stack>
             <Box style={{ display: "flex", gap: "3px" }}>
-              <Button variant="outlined" color="success">
+              <Button
+                onClick={() => {
+                  navigate(`/edit/${post.id}`);
+                }}
+                variant="outlined"
+                color="success"
+              >
                 Edit
               </Button>
               <Button
@@ -110,3 +122,12 @@ const PostList: React.FunctionComponent<PostListProps> = ({
 };
 
 export default PostList;
+function populateSavedPostTolocalList(state: unknown, posts: Post[]) {
+  if (state) {
+    const index = posts.findIndex((p) => p.id === (state as Post).id);
+    if (index > -1) {
+      posts[index].title = (state as Post).title;
+      posts[index].body = (state as Post).body;
+    }
+  }
+}

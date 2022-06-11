@@ -3,7 +3,12 @@ import { Box, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 
 const Sidebar = () => {
   return (
-    <Box flex={1.1} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
+    <Box
+      flex={1.1}
+      p={2}
+      paddingRight={0}
+      sx={{ display: { xs: "none", sm: "block" } }}
+    >
       <ListItemButton>
         <ListItemIcon>
           <Home />

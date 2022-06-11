@@ -17,7 +17,7 @@ const Feed = () => {
     setPosts((posts) => posts.filter((p) => p.id != postId));
   };
   return (
-    <Box flex={6} p={2}>
+    <Box flex={6} p={2} paddingLeft={0}>
       <PostList posts={posts} onAddPost={addPost} onDeletePost={deletedPost} />
     </Box>
   );
